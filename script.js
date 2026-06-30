@@ -88,7 +88,7 @@ window.addEventListener('scroll', () => {
     document.querySelectorAll('.nav-menu a').forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href').slice(1) === current) {
-            link.style.color = 'var(--primary-red)';
+            link.style.color = '#00d4ff';  // ✅ PERBAIKAN: Cyan biru muda (primary color baru)
         } else {
             link.style.color = 'var(--white)';
         }
