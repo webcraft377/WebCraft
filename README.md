@@ -111,7 +111,7 @@ WebCraft/
 
 ✨ **Smooth Scrolling** - Navigasi yang halus ke setiap section
 
-🎯 **Form Validation** - Validasi form kontak
+🏗️ **Form Validation** - Validasi form kontak
 
 📱 **Responsive Design** - Menyesuaikan dengan ukuran layar
 
