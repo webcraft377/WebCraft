@@ -37,13 +37,7 @@ Tiga paket harga yang dapat disesuaikan:
    - E-commerce integration
 
 ### 📸 Portofolio
-Galeri portofolio dengan 6 proyek unggulan:
-- Rebranding Corporate Kit
-- Website E-Commerce Modern
-- Desain UI/UX Profesional
-- Web Application Custom
-- Branding & Design System
-- Integrasi Photography & UI
+Galeri portofolio:
 
 ## Struktur File
 
@@ -53,12 +47,6 @@ WebCraft/
 ├── styles.css          # Stylesheet CSS
 ├── script.js           # JavaScript untuk interaktifitas
 ├── README.md           # Dokumentasi
-├── portfolio1.jpg      # Gambar portofolio 1
-├── portfolio2.jpg      # Gambar portofolio 2
-├── portfolio3.jpg      # Gambar portofolio 3
-├── portfolio4.jpg      # Gambar portofolio 4
-├── portfolio5.jpg      # Gambar portofolio 5
-└── portfolio6.jpg      # Gambar portofolio 6
 ```
 
 ## Bagian-Bagian Website
