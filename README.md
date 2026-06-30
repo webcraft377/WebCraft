@@ -6,7 +6,7 @@ Website portofolio profesional untuk **WebCraft**, layanan pembuatan website den
 ## Fitur Utama
 
 ### 🎨 Design Modern
-- Tema merah dan hitam yang dinamis dan profesional
+- Tema hitam dan biru muda yang dramatis dan profesional
 - Responsif di semua ukuran layar (mobile, tablet, desktop)
 - Animasi smooth dan transisi yang menarik
 
@@ -111,7 +111,7 @@ WebCraft/
 
 ✨ **Smooth Scrolling** - Navigasi yang halus ke setiap section
 
-🏗️ **Form Validation** - Validasi form kontak
+🎯 **Form Validation** - Validasi form kontak
 
 📱 **Responsive Design** - Menyesuaikan dengan ukuran layar
 
@@ -125,7 +125,7 @@ WebCraft/
 Edit variable CSS di `styles.css`:
 ```css
 :root {
-    --primary-red: #e63946;    /* Warna merah utama */
+    --primary-cyan: #00d4ff;   /* Warna biru muda utama */
     --dark-black: #1a1a1a;     /* Warna hitam gelap */
     --light-gray: #f5f5f5;     /* Warna abu-abu terang */
 }
