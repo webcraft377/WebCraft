@@ -1,4 +1,4 @@
-// Smooth scrolling for navigation links
+// Smooth Scrolling untuk navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -12,31 +12,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Form submission
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form values
-        const formData = new FormData(this);
-        
-        // Simulate form submission
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Pesan Terkirim!';
-        submitBtn.style.background = '#4CAF50';
-        
-        // Reset form
-        setTimeout(() => {
-            this.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.style.background = '';
-        }, 2000);
-    });
-}
-
-// Add animation on scroll
+// Intersection Observer untuk animasi fade-in
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px'
@@ -45,25 +21,38 @@ const observerOptions = {
 const observer = new IntersectionObserver(function(entries) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeInUp 0.6s ease-out';
+            // Tambah animasi fade-in
+            entry.target.style.animation = 'fadeIn 0.6s ease-in-out forwards';
             observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Observe portfolio items and pricing cards
-document.querySelectorAll('.portfolio-item, .pricing-card, .feature').forEach(el => {
-    el.style.opacity = '0';
-    observer.observe(el);
+// Observe portfolio items
+document.querySelectorAll('.portfolio-item').forEach(item => {
+    item.style.opacity = '0';
+    observer.observe(item);
 });
 
-// Add fade-in animation
+// Observe pricing cards
+document.querySelectorAll('.pricing-card').forEach(card => {
+    card.style.opacity = '0';
+    observer.observe(card);
+});
+
+// Observe feature items
+document.querySelectorAll('.feature').forEach(feature => {
+    feature.style.opacity = '0';
+    observer.observe(feature);
+});
+
+// Tambah keyframe untuk fade-in animation
 const style = document.createElement('style');
 style.textContent = `
-    @keyframes fadeInUp {
+    @keyframes fadeIn {
         from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
         }
         to {
             opacity: 1;
@@ -73,6 +62,66 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Form Validation
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const nama = this.querySelector('input[placeholder="Nama Anda"]').value.trim();
+        const email = this.querySelector('input[placeholder="Email Anda"]').value.trim();
+        const telepon = this.querySelector('input[placeholder="Nomor Telepon"]').value.trim();
+        const pesan = this.querySelector('textarea[placeholder="Pesan Anda"]').value.trim();
+        
+        // Validasi
+        let isValid = true;
+        let errorMessages = [];
+        
+        if (!nama) {
+            isValid = false;
+            errorMessages.push('Nama tidak boleh kosong');
+        }
+        
+        if (!email || !isValidEmail(email)) {
+            isValid = false;
+            errorMessages.push('Email tidak valid');
+        }
+        
+        if (!telepon || telepon.length < 10) {
+            isValid = false;
+            errorMessages.push('Nomor telepon minimal 10 digit');
+        }
+        
+        if (!pesan) {
+            isValid = false;
+            errorMessages.push('Pesan tidak boleh kosong');
+        }
+        
+        if (isValid) {
+            // Simulasi pengiriman form
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Pesan Terkirim!';
+            submitBtn.style.background = '#4CAF50';
+            
+            setTimeout(() => {
+                this.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.style.background = '';
+            }, 2000);
+        } else {
+            alert('Validasi gagal:\n' + errorMessages.join('\n'));
+        }
+    });
+}
+
+// Fungsi validasi email
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
 // Active navigation link on scroll
 window.addEventListener('scroll', () => {
     let current = '';
@@ -80,30 +129,50 @@ window.addEventListener('scroll', () => {
     
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        if (scrollY >= sectionTop - 200) {
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - 200) {
             current = section.getAttribute('id');
         }
     });
     
     document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').slice(1) === current) {
-            link.style.color = 'var(--primary-red)';
-        } else {
-            link.style.color = 'var(--white)';
+        link.style.color = 'var(--white)';
+        if (link.getAttribute('href') === '#' + current) {
+            link.style.color = 'var(--primary-cyan)';
         }
     });
 });
 
-// Mobile menu toggle (optional)
-const navMenu = document.querySelector('.nav-menu');
-const navItems = document.querySelectorAll('.nav-menu li');
+// Navbar sticky effect dengan shadow
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 0) {
+        navbar.style.boxShadow = '0 2px 20px rgba(0, 212, 255, 0.3)';
+    } else {
+        navbar.style.boxShadow = '0 2px 10px rgba(0, 212, 255, 0.2)';
+    }
+});
 
-navItems.forEach(item => {
-    item.addEventListener('click', () => {
-        // Close menu on item click if mobile
-        if (window.innerWidth < 768) {
-            navMenu.classList.remove('active');
-        }
+// Mobile menu toggle (untuk responsive)
+const navBrand = document.querySelector('.nav-brand');
+const navMenu = document.querySelector('.nav-menu');
+
+if (window.innerWidth <= 768) {
+    navBrand.style.cursor = 'pointer';
+    navBrand.addEventListener('click', () => {
+        navMenu.style.display = navMenu.style.display === 'none' ? 'flex' : 'none';
     });
+    
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.style.display = 'none';
+        });
+    });
+}
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        navMenu.style.display = 'flex';
+    }
 });
